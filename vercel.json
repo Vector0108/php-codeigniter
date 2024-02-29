@@ -1,7 +1,22 @@
 {
-	"version": 2,
-	"builds": [{
-	  "src": "*.php",
-	  "use": "@vercel/php"
-	}]
+	"version": 3,
+	"public": true,
+	"functions": {
+	  "api/*.php": {
+		"runtime": "vercel-php@0.5.2"
+	  }
+	},
+	"routes": [
+	  {
+		"src": "/assets/(.*)",
+		"headers": {
+		  "cache-control": "s-maxage=604800"
+		},
+		"dest": "/assets/$1"
+	  },
+	  {
+		"src": "/(.*)",
+		"dest": "api/index.php"
+	  }
+	]
   }
